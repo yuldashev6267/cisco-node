@@ -3,7 +3,6 @@ const path = require("path");
 const multer = require("multer");
 const ShopsModel = require("../model/shopsModel");
 const photos = path.join(__dirname, "../public/img/shops");
-console.log(photos);
 exports.createShops = async (req, res) => {
   try {
     if (req.file) {

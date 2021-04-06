@@ -7,7 +7,7 @@ exports.addRequest = async (req, res) => {
       email: req.body.email,
       number: req.body.number,
       company: req.body.company,
-      date: new Moment().calendar(),
+      date: moment().format("MMMM Do YYYY, h:mm:ss a"),
     });
 
     res.status(201).json({ status: "success", message: "Added" });

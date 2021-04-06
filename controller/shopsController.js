@@ -53,7 +53,7 @@ exports.getAllShops = async (req, res) => {
 exports.updateShops = async (req, res) => {
   try {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ["shopName", "description", "number"];
+    const allowedUpdates = ["photo", "shopName", "description", "number"];
     const isAllowed = updates.every((el) => allowedUpdates.includes(el));
     if (!isAllowed) {
       return res.status(400).json({
@@ -65,6 +65,11 @@ exports.updateShops = async (req, res) => {
     updates.forEach((el) => {
       shop[el] = req.body[el];
     });
+    if (req.file) {
+      fs.unlink(`${photos}/${shop.photo}`, (error) => {
+        console.log(error);
+      });
+    }
     await shop.save();
     res.status(200).json({
       status: "success",

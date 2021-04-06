@@ -38,3 +38,17 @@ exports.getAllRequests = async (req, res) => {
     });
   }
 };
+
+exports.deleteAllRequests = async (req, res) => {
+  try {
+    await User.deleteMany();
+    res.status(200).json({
+      status: "success",
+      message: "deleted",
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "fail", message: error.message, stack: error.stack });
+  }
+};

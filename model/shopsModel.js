@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-const shopsSchema = new Schema({
+const shopsSchema = new mongoose.Schema({
   photo: {
     type: String,
-    default: "default.jpg",
+    default: "default.jpeg",
   },
   shopName: {
     type: String,

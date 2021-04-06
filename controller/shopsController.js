@@ -1,9 +1,16 @@
-const ShopsModel = require("../model/shopsModel");
+const fs = require("fs");
+const path = require("path");
 const multer = require("multer");
-
+const ShopsModel = require("../model/shopsModel");
+const photos = path.join(__dirname, "../public/img/shops");
+console.log(photos);
 exports.createShops = async (req, res) => {
   try {
+    if (req.file) {
+      req.body.photo = req.file.filename;
+    }
     const shop = await ShopsModel.create({
+      photo: req.body.photo,
       shopName: req.body.shopName,
       description: req.body.description,
       number: req.body.number,
@@ -29,6 +36,7 @@ exports.getAllShops = async (req, res) => {
     const shops = await ShopsModel.find();
     res.status(200).json({
       status: "success",
+      docs: shops.length,
       data: {
         shops,
       },
@@ -47,7 +55,7 @@ exports.updateShops = async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ["shopName", "description", "number"];
     const isAllowed = updates.every((el) => allowedUpdates.includes(el));
-    if (isAllowed) {
+    if (!isAllowed) {
       return res.status(400).json({
         status: "fail",
         message: "there is no name such a update",
@@ -75,13 +83,18 @@ exports.updateShops = async (req, res) => {
 
 exports.deleteShop = async (req, res) => {
   try {
-    const shop = await ShopsModel.findByIdAndDelete(req.params.id);
+    const shop = await ShopsModel.findOne({ _id: req.params.id });
     if (!shop) {
       return res.status(404).json({
         status: "fail",
         message: "There is no shop with that id",
       });
     }
+
+    fs.unlink(`${photos}/${shop.photo}`, (error) => {
+      console.log(error);
+    });
+    await shop.remove();
     res.status(200).json({
       status: "success",
       message: "deleted",

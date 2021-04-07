@@ -1,5 +1,5 @@
 const User = require("../model/userReqModel");
-const Moment = require("moment");
+const moment = require("moment");
 exports.addRequest = async (req, res) => {
   try {
     const addRequest = await User.create({

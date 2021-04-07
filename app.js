@@ -13,11 +13,7 @@ const shopsRouter = require("./routes/shopsRouter");
 const app = express();
 app.enable("trust proxy");
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors());
 
 app.options("*", cors());
 app.use(helmet());

@@ -22,7 +22,7 @@ exports.addRequest = async (req, res) => {
 
 exports.getAllRequests = async (req, res) => {
   try {
-    const userRequests = await User.find();
+    const userRequests = await User.find().sort({ date: -1 });
     res.status(200).json({
       status: "success",
       docs: userRequests.length,

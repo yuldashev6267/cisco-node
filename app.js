@@ -12,12 +12,12 @@ const shopsRouter = require("./routes/shopsRouter");
 const app = express();
 
 app.use(helmet());
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: "Too many requests from this IP, please try again in an hour!",
-});
-app.use("/api", limiter);
+// const limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message: "Too many requests from this IP, please try again in an hour!",
+// });
+// app.use("/api", limiter);
 app.use(xss());
 app.use((req, res, next) => {
   //to allow cross domain requests to send cookie information.

@@ -7,12 +7,13 @@ router.post("/add-request", useReqController.addRequest);
 router.get(
   "/all-requests",
   authController.protectTo,
+  authController.adminPanelRole("admin"),
   useReqController.getAllRequests
 );
 router.delete(
   "/all-requests",
   authController.protectTo,
+  authController.adminPanelRole("admin"),
   useReqController.deleteAllRequests
 );
 module.exports = router;
-// , authController.adminPanelRole("admin")

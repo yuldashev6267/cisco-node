@@ -94,14 +94,14 @@ exports.protectTo = async (req, res, next) => {
   }
 };
 
-// exports.adminPanelRole = (...roles) => {
-//   return (req, res, next) => {
-//     if (!roles.includes(req.admin.role)) {
-//       return res.status(400).json({
-//         status: "fail",
-//         message: "You are not admin",
-//       });
-//     }
-//     next();
-//   };
-// };
+exports.adminPanelRole = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.admin.role)) {
+      return res.status(400).json({
+        status: "fail",
+        message: "You are not admin",
+      });
+    }
+    next();
+  };
+};

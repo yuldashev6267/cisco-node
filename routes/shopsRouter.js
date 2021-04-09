@@ -12,14 +12,18 @@ router.delete(
 router.post(
   "/add-point-of-sales",
   authController.protectTo,
+  authController.adminPanelRole("admin"),
   imageController.uploadUserPhoto,
   imageController.resizeUserPhoto,
   shopsController.createShops
 );
-// , authController.adminPanelRole("admin")
+
 router.patch(
   "/update-shop/:id",
   authController.protectTo,
+  authController.adminPanelRole("admin"),
+  imageController.uploadUserPhoto,
+  imageController.resizeUserPhoto,
   shopsController.updateShops
 );
 

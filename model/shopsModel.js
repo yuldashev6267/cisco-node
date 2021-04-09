@@ -10,6 +10,9 @@ const shopsSchema = new mongoose.Schema({
     required: [true, "Required"],
     unique: [true, "This shop name already exsist"],
   },
+  url: {
+    type: String,
+  },
   description: {
     type: String,
     required: [true, "Required"],

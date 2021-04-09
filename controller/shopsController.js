@@ -11,6 +11,7 @@ exports.createShops = async (req, res) => {
     const shop = await ShopsModel.create({
       photo: req.body.photo,
       shopName: req.body.shopName,
+      url: req.body.url,
       description: req.body.description,
       number: req.body.number,
       location: req.body.location,

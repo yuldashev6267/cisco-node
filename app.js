@@ -27,7 +27,10 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
 
   // list of methods that are supported by the server
-  res.header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "OPTIONS,GET,PUT,PATCH,POST,DELETE"
+  );
 
   res.header(
     "Access-Control-Allow-Headers",

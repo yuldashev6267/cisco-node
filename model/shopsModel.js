@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const shopsSchema = new mongoose.Schema({
   photo: {
     type: String,
-    default: "default.jpeg",
   },
   shopName: {
     type: String,

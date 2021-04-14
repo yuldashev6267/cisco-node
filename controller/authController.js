@@ -94,6 +94,32 @@ exports.protectTo = async (req, res, next) => {
   }
 };
 
+exports.authenticatedAdmin = async (req, res) => {
+  try {
+    const admin = await AdminModel.findById(req.admin.id).select("-password");
+
+    if (!admin) {
+      res.status(401).json({
+        status: "fail",
+        message: "Please authenticate",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        admin,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: error.message,
+      stack: error.stack,
+    });
+  }
+};
+
 exports.adminPanelRole = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.admin.role)) {

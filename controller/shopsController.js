@@ -5,8 +5,12 @@ const ShopsModel = require("../model/shopsModel");
 const photos = path.join(__dirname, "../public/img/shops");
 exports.createShops = async (req, res) => {
   try {
+    console.log("file", req.file);
+    console.log("photo", req.photo);
     if (req.file) {
       req.body.photo = req.file.filename;
+    } else {
+      req.body.photo = null;
     }
     const shop = await ShopsModel.create({
       photo: req.body.photo,
@@ -50,18 +54,48 @@ exports.getAllShops = async (req, res) => {
   }
 };
 
+exports.getShopById = async (req, res) => {
+  try {
+    const shop = await ShopsModel.findById(req.params.id);
+
+    if (!shop) {
+      return res.status(404).json({
+        status: "fail",
+        message: "There is no shop with that id",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      data: {
+        shop,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
+
 exports.updateShops = async (req, res) => {
   try {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ["photo", "shopName", "description", "number"];
+    const allowedUpdates = [
+      "photo",
+      "shopName",
+      "description",
+      "number",
+      "url",
+    ];
     const isAllowed = updates.every((el) => allowedUpdates.includes(el));
-    if (!isAllowed) {
-      return res.status(400).json({
-        status: "fail",
-        message: "there is no name such a update",
-      });
-    }
-    const shop = await ShopsModel.findById(req.params.id);
+    // if (!isAllowed) {
+    //   return res.status(400).json({
+    //     status: "fail",
+    //     message: "there is no name such a update",
+    //   });
+    // }
+    const shop = await ShopsModel.findOne({ _id: req.params.id });
     updates.forEach((el) => {
       shop[el] = req.body[el];
     });
@@ -73,9 +107,7 @@ exports.updateShops = async (req, res) => {
     await shop.save();
     res.status(200).json({
       status: "success",
-      data: {
-        shop,
-      },
+      message: "updated",
     });
   } catch (error) {
     res.status(500).json({

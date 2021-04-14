@@ -9,6 +9,12 @@ router.delete(
   authController.protectTo,
   shopsController.deleteShop
 );
+router.get(
+  "/find-shop/:id",
+  authController.protectTo,
+  authController.adminPanelRole("admin"),
+  shopsController.getShopById
+);
 router.post(
   "/add-point-of-sales",
   authController.protectTo,

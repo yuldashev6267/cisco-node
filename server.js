@@ -6,5 +6,5 @@ const port = process.env.PORT || 5000;
 
 mongoDB();
 app.listen(port, () => {
-  console.log("Server up on running port ", port);
+  "Server up on running port ", port;
 });

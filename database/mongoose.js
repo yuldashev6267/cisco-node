@@ -11,13 +11,7 @@ const myDatabase = async () => {
       useFindAndModify: true,
       useUnifiedTopology: true,
     });
-    console.log("Database connected");
-  } catch (error) {
-    console.log({
-      error: error,
-      stack: error.stack,
-    });
-  }
+  } catch (error) {}
 };
 
 module.exports = myDatabase;

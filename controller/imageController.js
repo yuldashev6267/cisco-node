@@ -19,7 +19,6 @@ exports.resizeUserPhoto = async (req, res, next) => {
   try {
     if (!req.file) return next();
     req.file.filename = `shops-${Date.now()}.jpeg`;
-    console.log(req.file);
     await sharp(req.file.buffer)
       .resize(500, 500)
       .toFormat("jpeg")
@@ -28,7 +27,6 @@ exports.resizeUserPhoto = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log(error);
     next();
   }
 };

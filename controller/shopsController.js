@@ -5,8 +5,7 @@ const ShopsModel = require("../model/shopsModel");
 const photos = path.join(__dirname, "../public/img/shops");
 exports.createShops = async (req, res) => {
   try {
-    console.log("file", req.file);
-    console.log("photo", req.photo);
+   
     if (req.file) {
       req.body.photo = req.file.filename;
     } else {
@@ -101,7 +100,6 @@ exports.updateShops = async (req, res) => {
     });
     if (req.file) {
       fs.unlink(`${photos}/${shop.photo}`, (error) => {
-        console.log(error);
       });
     }
     await shop.save();
@@ -129,7 +127,6 @@ exports.deleteShop = async (req, res) => {
     }
 
     fs.unlink(`${photos}/${shop.photo}`, (error) => {
-      console.log(error);
     });
     await shop.remove();
     res.status(200).json({
